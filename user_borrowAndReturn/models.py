@@ -16,7 +16,14 @@ class Member(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone = models.CharField(max_length=15)
-    account_id = models.ForeignKey(Account,on_delete=models.CASCADE)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+# 類型
+class Category(models.Model):
+    name=models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
@@ -26,6 +33,7 @@ class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     cover = models.CharField(max_length=500)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     available_quantity = models.PositiveIntegerField()
 
     def __str__(self):
