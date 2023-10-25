@@ -15,7 +15,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 # 書籍
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['title', 'author', 'category','available_quantity']
+    list_display = ['title', 'author', 'category', 'slug','available_quantity']
 
 # 借還書
 class BorrowingRecordAdmin(admin.ModelAdmin):

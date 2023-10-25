@@ -34,6 +34,7 @@ class Book(models.Model):
     author = models.CharField(max_length=100)
     cover = models.CharField(max_length=500)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+    slug = models.CharField(max_length=100,null=True,blank=True)
     available_quantity = models.PositiveIntegerField()
 
     def __str__(self):
