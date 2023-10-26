@@ -10,14 +10,14 @@ def homepage(request):
     result = "<h1>The hottest books</h1>"
     for book in books:
         borrow_count = book.borrowingrecord_set.count()
-        result += f"<a href='/book/{book.slug}'>{book.title}</a> <p>類型:{book.category}</p><p>作者:{book.author}</p>借閱量：{borrow_count}</p>"
+        result += f"<a href='/book/{book.id}'>{book.title}</a> <p>類型:{book.category}</p><p>作者:{book.author}</p>借閱量：{borrow_count}</p>"
 
     return HttpResponse(result)
 
-def showBook(request, slug):
+def showBook(request, id):
     try:
-        book=Book.objects.get(slug=slug)
-        if book != None:
+        book=Book.objects.get(id=id)
+        if book is not None:
             borrow_count = book.borrowingrecord_set.count()
             result=f"<h2>{book.title}</h2>"
             result += f"<img src='{book.cover}' alt='Book Cover' style='width: 100px;'><br><p>類型:{book.category}</p><p>作者:{book.author}</p><p>館內餘量:{book.available_quantity}   借閱量：{borrow_count}</p>"

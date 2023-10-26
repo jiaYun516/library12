@@ -6,5 +6,5 @@ from user_borrowAndReturn import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.homepage),
-    path('book/<slug:slug>/',views.showBook)
+    path('book/<int:id>/',views.showBook)
 ]
