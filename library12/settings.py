@@ -64,6 +64,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'getAllCategoryForMenu': 'user_borrowAndReturn.templatetags.getAllCategoryForMenu',  # 请根据你的项目结构进行适当修改
+            },
         },
     },
 ]
