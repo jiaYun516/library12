@@ -9,12 +9,12 @@
             <a href='/book/{{book.id}}/'>{{book.title}}</a>
         </p>
     </div>
+    <br>
     <div class='card-body' style='background-color:#FFD700'>
         <p>作者:{{book.author}}</p>
-        <p>類型:<a href='/category/{book.category_id}'>{{book.category}}</a></p>
+        <p>類型:<a href='/category/{book.category_id}/'>{{book.category}}</a></p>
         <p>借閱量：{{book.borrow_count}}</p>
         <p>館內餘量:{{book.available_quantity}}</p>
-        <p>出版日期:{{book.publication_date}}</p>
     </div>
     <div class='card-footer'  style='background-color:#f5f5dc'>
         <p>

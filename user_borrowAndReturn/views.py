@@ -37,6 +37,6 @@ def searchByCategory(request, category_id):
             result=f"<h2>{category}</h2>"
             for book in books:
                 result += f"<p>{book.title}</p> <p>作者:{book.author}</p> <p>館內餘量:{book.available_quantity}   借閱量：{book.borrow_count}</p><br>"
-            return HttpResponse(result)
+            return render(request, 'categoryPage.html', {'books':books,'category':category})
     except:
         return redirect('/')
