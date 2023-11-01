@@ -34,6 +34,8 @@ class Book(models.Model):
     cover = models.CharField(max_length=500)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     available_quantity = models.PositiveIntegerField()
+    publication_date = models.DateField(null=True,blank=True)
+    content=models.TextField(max_length=500,null=True,blank=True)
 
     def __str__(self):
         return self.title

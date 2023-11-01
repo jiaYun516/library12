@@ -65,7 +65,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'libraries': {
-                'getAllCategoryForMenu': 'user_borrowAndReturn.templatetags.getAllCategoryForMenu',  # 请根据你的项目结构进行适当修改
+                'getAllCategoryForMenu': 'user_borrowAndReturn.templatetags.getAllCategoryForMenu', 
             },
         },
     },
@@ -123,7 +123,7 @@ STATIC_ROOT = BASE_DIR/'staticfile'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-STATIC_URL='static/'
+STATIC_URL='/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

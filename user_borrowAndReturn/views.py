@@ -12,7 +12,7 @@ def homepage(request):
     result = "<h1>The hottest books</h1>"
     for book in books:
         result += f"<a href='/book/{book.id}'>{book.title}</a><p>類型:<a href='/category/{book.category_id}'>{book.category}</a></p><p>作者:{book.author}</p>借閱量：{book.borrow_count}</p><br>"
-    return HttpResponse(result)
+    return render(request, 'homePage.html', locals())
 
 '''
 不會有同id的書所以不需要遍歷
