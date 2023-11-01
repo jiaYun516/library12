@@ -1,0 +1,14 @@
+
+{% extends "base.html" %}
+{%block title%}猴子的叢林{% endblock title %}
+{% block headmessage %}
+<h3 style='font-family:微軟正黑體;'>{{book.title}}</h3>
+<a style='font-family:微軟正黑體;'href="/">回首頁</a>
+{%endblock headmessage%}
+{% block content%}
+<img src="{{ book.cover }}" style="width: 200px;">
+<p>作者:{{book.author}}</p>
+<p style='font-family:微軟正黑體;font-size:12pt;letter-spacing:2pt;'>
+    {{ post.body}}</a>
+</p>
+{% endblock content %}

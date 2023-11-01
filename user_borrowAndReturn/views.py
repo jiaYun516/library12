@@ -9,10 +9,7 @@ book對象調用count方法計算此book對象在borrowingrecord表中的次數
 '''
 def homepage(request):
     books = Book.objects.annotate(borrow_count=Count('borrowingrecord')).order_by('-borrow_count', 'title')
-    result = "<h1>The hottest books</h1>"
-    for book in books:
-        result += f"<a href='/book/{book.id}'>{book.title}</a><p>類型:<a href='/category/{book.category_id}'>{book.category}</a></p><p>作者:{book.author}</p>借閱量：{book.borrow_count}</p><br>"
-    return render(request, 'homePage.html', locals())
+    return render(request, 'homePage.html', {'books':books})
 
 '''
 不會有同id的書所以不需要遍歷
@@ -24,7 +21,7 @@ def searchById(request, id):
             result=f"<h2>{book.title}</h2>"
             borrow_count=BorrowingRecord.objects.count()
             result += f"<img src='{book.cover}' alt='Book Cover' style='width: 100px;'><br><p>類型:<a href='/category/{book.category_id}'>{book.category}</a></p><p>作者:{book.author}</p><p>館內餘量:{book.available_quantity}   借閱量：{borrow_count}</p>"
-            return HttpResponse(result)
+            return render(request, 'bookPage.html', {'book':book})
     except:
         return redirect('/')
 
