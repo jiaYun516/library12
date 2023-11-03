@@ -1,9 +1,10 @@
-
 {% extends "base.html" %}
 {%block title%}猴子的叢林{% endblock title %}
 {% block headmessage %}
-<h3 style='font-family:微軟正黑體;'>{{book.title}}</h3>
-<a style='font-family:微軟正黑體;'href="/">回首頁</a>
+<div style="display: flex;justify-content: space-between; align-items: center;">
+    <h3 style='font-family:微軟正黑體;'>{{book.title}}</h3>
+    <a style='font-family:微軟正黑體;' href="/">回首頁</a>
+</div>
 {%endblock headmessage%}
 {% block content%}
 <img src="{{ book.cover }}" style="width: 200px;">

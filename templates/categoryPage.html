@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block title %}猴子的叢林{% endblock title %}
 {% block headmessage %}
-<h3 style='font-family:標楷體;'>{{ category }}類藏書列表</h3>
-<a style='font-family:微軟正黑體;'href="/">回首頁</a>
+<div style="display: flex;justify-content: space-between;align-items: center;">
+    <h3 style='font-family:標楷體;'>{{ category }}類藏書列表</h3>
+    <a style='font-family:微軟正黑體;margin-right: 20px;'href="/">回首頁</a> 
+</div>
 {% endblock headmessage %}
 
 {% block content %}
@@ -14,13 +16,13 @@
         </p>
     </div>
     <br>
-    <div class='card-body' style='background-color:#FFD700'>
+    <div class='card-body' style='background-color:#ffffff'>
         <p>作者:{{ book.author }}</p>
         <p>類型:<a href='/category/{{ book.category_id }}/'>{{ book.category }}</a></p>
         <p>借閱量：{{ book.borrow_count }}</p>
         <p>館內餘量:{{ book.available_quantity }}</p>
     </div>
-    <div class='card-footer'  style='background-color:#f5f5dc'>
+    <div class='card-footer'  style='background-color:#cacaca'>
         <p>{{ book.content | truncatechars:40 }}</p>
     </div>
 </div>

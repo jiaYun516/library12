@@ -40,3 +40,8 @@ def searchByCategory(request, category_id):
             return render(request, 'categoryPage.html', {'books':books,'category':category})
     except:
         return redirect('/')
+
+def search(request):
+    kw = request.GET.get('keyWord')
+    books = Book.objects.filter(title__icontains=kw) | Book.objects.filter(author__icontains=kw)
+    return render(request, 'search_results.html', {'books': books, 'keyWord': kw})

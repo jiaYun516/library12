@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{%block title%}猴子的叢林圖書館{% endblock title %}
+{% block headmessage %}
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h3 style='font-family:標楷體;'>{{ keyWord }} 的相關搜尋：</h3>
+    <a style='font-family:微軟正黑體;' href="/">回首頁</a> 
+</div>
+{%endblock headmessage%}
+{% block content%}
+{% if not books %}
+<p style='font-family:微軟正黑體;font-size:14pt;font-weight:bold;'>哦哦！沒有相關書籍呢T^T<br>換個關鍵字試試吧!</p>
+{% else %}
+    {%for book in books%}
+        <div class='card'>
+            <div class='card-header'>
+                <p style='font-family:微軟正黑體;font-size:14pt;font-weight:bold;'>
+                    <a href='/book/{{book.id}}/'>{{book.title}}</a>
+                </p>
+            </div>
+            <br>
+            <div class='card-body' style='background-color:#ffffff'>
+                <p>作者:{{book.author}}</p>
+                <p>類型:<a href='/category/{{book.category_id}}/'>{{book.category}}</a></p>
+                <p>借閱量：{{book.borrow_count}}</p>
+                <p>館內餘量:{{book.available_quantity}}</p>
+            </div>
+            <div class='card-footer'  style='background-color:#cacaca'>
+                <p>
+                    {{ book.content | truncatechars:40 }}
+                </p>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+{% endif %}
+{% endblock content %}

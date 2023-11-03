@@ -10,13 +10,13 @@
         </p>
     </div>
     <br>
-    <div class='card-body' style='background-color:#FFD700'>
+    <div class='card-body' style='background-color:#ffffff'>
         <p>作者:{{book.author}}</p>
         <p>類型:<a href='/category/{{book.category_id}}/'>{{book.category}}</a></p>
         <p>借閱量：{{book.borrow_count}}</p>
         <p>館內餘量:{{book.available_quantity}}</p>
     </div>
-    <div class='card-footer'  style='background-color:#f5f5dc'>
+    <div class='card-footer'  style='background-color:#cacaca'>
         <p>
             {{ book.content | truncatechars:40 }}
         </p>
