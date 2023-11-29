@@ -10,8 +10,12 @@
 <img src="{{ book.cover }}" style="width: 200px;">
 <p>作者:{{book.author}}</p>
 <p style='font-family:微軟正黑體;font-size:12pt;letter-spacing:2pt;'>
-    {{ book.content}}</a>
+    {{ book.content }}</a>
 <br>
 <p>出版日期:{{book.publication_date}}</p>
-</p>
+{% if book.available_quantity > 0 %}
+    <a href="/borrowBook/{{ book.id }}">借閱此書</a>
+{% else %}
+    <p>此書館藏歸零暫時無法借閱</p>
+{% endif %}
 {% endblock content %}

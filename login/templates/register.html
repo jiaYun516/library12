@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>註冊</title>
+</head>
+<body>
+    <h1>註冊圖書館帳號</h1>
+    <div>
+        <form action="/register/" method="post">
+            {% csrf_token %}
+            <h3 style="color: red;">{{ msg }}</h3>
+            <div class="field">
+                <label for="username">帳號： </label>
+                <input type="text" name="username" id="">
+            </div>
+            <div class="field">
+                <label for="password">密碼： </label>
+                <input type="password" name="password" id="">
+            </div>
+            <div class="field">
+                <label for="password2">密碼確認： </label>
+                <input type="password" name="password2" id="">
+            </div>
+            <div class="field">
+                <label for="email">mail： </label>
+                <input type="email" name="email" id="">
+            </div>
+            <div class="field">
+                <label for="first_name">姓氏： </label>
+                <input type="text" name="first_name" id="">
+            </div>
+            <div class="field">
+                <label for="last_name">姓名： </label>
+                <input type="text" name="last_name" id="">
+            </div>
+            <input type="submit" value="註冊">
+        </form>
+    </div>
+</body>
+</html>

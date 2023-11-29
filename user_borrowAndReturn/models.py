@@ -2,23 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.utils import timezone
-
-# 使用者狀態
-class Account(models.Model):
-    name = models.CharField(max_length=100)
-    
-    def __str__(self):
-        return self.name
-    
-# 使用者
-class Member(models.Model):
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
-    phone = models.CharField(max_length=15)
-    account = models.ForeignKey(Account, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
+from django.contrib.auth.models import User
 
 # 類型
 class Category(models.Model):
@@ -42,12 +26,12 @@ class Book(models.Model):
 
 # 借還記錄
 class BorrowingRecord(models.Model):
-    member = models.ForeignKey(Member, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     borrowing_date = models.DateField(auto_now_add=True)
-    due_date = models.DateField(default=timezone.now()+timezone.timedelta(days=60))
+    due_date = models.DateField(null=True, blank=True)
     actual_return_date = models.DateField(null=True, blank=True)
     is_returned = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.member} 借閱 {self.book}"
+        return f"{self.user} 借閱 {self.book}"
