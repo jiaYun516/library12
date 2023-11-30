@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{%block title%}猴子的叢林{% endblock title %}
+{% block headmessage %}
+<div style="display: flex;justify-content: space-between; align-items: center;">
+    <h3 style='font-family:微軟正黑體;'>{{ request.user.first_name }} {{ identityName }}的待還</h3>
+    <a style='font-family:微軟正黑體;' href="/">回首頁</a>
+</div>
+{%endblock headmessage%}
+{% block content%}
+<div>
+    <h2>逾期圖書</h2>
+    {% if timeoutReturn %}
+        <table>
+            <tr>
+                <td>書名</td>
+                <td>借閱日期</td>
+                <td>應還日期</td>
+            </tr>
+            {% for l in timeoutReturn %}
+                <tr>
+                    <td>{{ l.book.title }}</td>
+                    <td>{{ l.borrowing_date }}</td>
+                    <td style="color: red;">{{ l.due_date }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>尚未有逾期圖書</p>
+    {% endif %}
+</div>
+<br>
+<div>
+    <h2>即將到期圖書</h2>
+    {% if needReturnList %}
+        <table>
+            <tr>
+                <td>書名</td>
+                <td>借閱日期</td>
+                <td>應還日期</td>
+            </tr>
+            {% for l in borrowList %}
+                <tr>
+                    <td>{{ l.book.title }}</td>
+                    <td>{{ l.borrowing_date }}</td>
+                    {% now "Y-m-d" as current_datetime %}
+                    {% if l.due_date > now %}
+                        <td style="color: red;">{{ l.due_date }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>尚未有即將到期圖書</p>
+    {% endif %}
+</div>
+
+{% endblock content %}

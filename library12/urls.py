@@ -11,6 +11,9 @@ urlpatterns = [
     path('category/<int:category_id>/',views.searchByCategory),
     path('search/',views.search, name='search'),
     path('borrowBook/<int:book_id>',views.borrowBook, name='borrowBook'),
+    path('borrowList/',views.getBorrowListByUser,name='borrowList'),
+    path('needReturn/',views.getNeedReturnBook,name='needReturn'),
+
 
     path('login/',loginApp.logins,name='login'),
     path('register/',loginApp.register,name='register'),

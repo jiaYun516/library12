@@ -10,9 +10,24 @@ annotate(borrow_count=Count('borrowingrecord')): 為每本書加上借閱量計�
 book對象調用count方法計算此book對象在borrowingrecord表中的次數
 .order_by('-borrow_count', 'title'): 依照borrow_count降序 title升序
 '''
+def identity(user):
+    if user.is_superuser:
+        return "管理"
+    elif user.is_staff:
+        return "圖書員"
+    else:
+        return "讀者"
+
 def homepage(request):
     books = Book.objects.annotate(borrow_count=Count('borrowingrecord')).order_by('-borrow_count', 'title')
-    return render(request, 'homePage.html', {'books':books})
+    if request.user.is_active:
+        is_superuser_staff=request.user.is_superuser or request.user.is_staff
+        identityName=identity(request.user)
+        return render(request, 'homePage.html', locals())
+    else:
+        is_superuser_staff=False
+        return render(request, 'homePage.html', locals())
+
 
 '''
 不會有同id的書所以不需要遍歷
@@ -73,3 +88,31 @@ def borrowBook(request, book_id):
     else:
         messages.warning(request, '尚未登入不可借書，請先登入')
         return redirect('login')
+
+# 待
+def returnBook(request):
+    return
+
+@login_required
+def getBorrowListByUser(request):
+    borrowList=BorrowingRecord.objects.filter(user=request.user)
+    identityName=identity(request.user)
+    return render(request,'getBorrowList.html',locals())
+
+@login_required
+def getNeedReturnBook(request):
+    day_now=timezone.now()
+    three_days_later = day_now + timezone.timedelta(days=3)
+    timeoutReturn=BorrowingRecord.objects.filter(user=request.user,
+                                                 is_returned=False,
+                                                 due_date__lt=day_now)
+    
+    needReturnList=BorrowingRecord.objects.filter(user=request.user,
+                                                  is_returned=False,
+                                                  due_date__lte=three_days_later)  #__gte大於等於 __lte小於等於
+    identityName=identity(request.user)
+    return render(request,'needReturnList.html',locals())
+
+
+
+

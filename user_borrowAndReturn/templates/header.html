@@ -7,15 +7,7 @@
 </div>
 <div style="display: flex; justify-content: space-between;">
     <div>
-        <h1 style="font-family:微軟正黑體;">歡迎光臨 猴子的叢林圖書館</h1>
-        {% if request.user.is_active %}
-            <p>歡迎 {{ request.user.first_name }}</p>
-            <a href="/logout/">登出</a>
-        {% else %}
-            <a href="/login/">登入</a>
-            <a href="/register/">註冊</a>
-        {% endif %}
-        
+        <h1 style="font-family:微軟正黑體;">歡迎光臨 猴子的叢林圖書館</h1> 
     </div>
     <form method="GET" action="{% url 'search' %}">
         <input type="text" name="keyWord" placeholder="搜索圖書...">
