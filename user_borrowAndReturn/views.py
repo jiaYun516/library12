@@ -95,10 +95,15 @@ def borrowBook(request, book_id):
         return redirect('login')
 
 def returnBookPage(request):
-    if request.method=='POST' and request.POST.get('username'):
-        user=User.objects.get(username=request.POST.get('username'))
-        returnList=BorrowingRecord.objects.filter(user=user, is_returned=False).order_by('due_date')
-        return render(request,'returnBookPage.html',locals())
+    if request.method=='POST':
+        name=request.POST.get('username')
+        if User.objects.filter(username=name).exists():
+            user=User.objects.get(username=request.POST.get('username'))
+            returnList=BorrowingRecord.objects.filter(user=user, is_returned=False).order_by('due_date')
+            return render(request,'returnBookPage.html',locals())
+        else:
+            return render(request,'returnBookPage.html',{'msg':'查無此用戶'})
+
     else:
         return render(request,'returnBookPage.html',{'msg':' '})
 
