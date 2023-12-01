@@ -13,9 +13,11 @@
     {{ book.content }}</a>
 <br>
 <p>出版日期:{{book.publication_date}}</p>
-{% if book.available_quantity > 0 %}
-    <a href="/borrowBook/{{ book.id }}">借閱此書</a>
+
+{% if msg %}
+    <p>{{ msg }}</p>
 {% else %}
-    <p>此書館藏歸零暫時無法借閱</p>
+    <a href="/borrowBook/{{ book.id }}" onclick="alert('確定借閱嗎');">借閱此書</a>
 {% endif %}
+
 {% endblock content %}

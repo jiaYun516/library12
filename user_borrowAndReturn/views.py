@@ -39,7 +39,15 @@ def searchById(request, id):
         if book is not None:
             result=f"<h2>{book.title}</h2>"
             borrow_count=BorrowingRecord.objects.count()
-            result += f"<img src='{book.cover}' alt='Book Cover' style='width: 100px;'><br><p>類型:<a href='/category/{book.category_id}'>{book.category}</a></p><p>作者:{book.author}</p><p>館內餘量:{book.available_quantity}   借閱量：{borrow_count}</p>"
+
+            if request.user.is_active:
+                if BorrowingRecord.objects.filter(user=request.user,book=book,is_returned=False,).exists():
+                    msg='已經借閱本圖書'
+                    return render(request, 'bookPage.html', locals())
+                elif book.available_quantity == 0:
+                    msg='館藏已無'
+                    return render(request, 'bookPage.html', locals())
+
             return render(request, 'bookPage.html', {'book':book})
     # except:
     #     return redirect('/')
@@ -67,14 +75,11 @@ def search(request):
 
 def borrowBook(request, book_id):
     if request.user.is_active:
-        book = get_object_or_404(Book, id=book_id)
-        if BorrowingRecord.objects.filter(user=request.user,book=book,is_returned=False,).exists():
-            return render(request, 'borrow_view.html', {'msg': '已經借閱本圖書'})
+        book = Book.objects.get(id=book_id)
         if book.available_quantity > 0:
             due_date = timezone.now() + timezone.timedelta(days=90)
-
             borrowing_record = BorrowingRecord.objects.create(
-                user=request.user,
+                user=request.user, 
                 book=book,
                 borrowing_date=timezone.now(),
                 due_date=due_date,
@@ -85,7 +90,6 @@ def borrowBook(request, book_id):
             return render(request, 'borrow_view.html', {'borrowing_record': borrowing_record,'msg':'借閱成功！'})
         else:
             return render(request, 'borrow_view.html', {'msg': '圖書暫不可借'})
-    
     else:
         messages.warning(request, '尚未登入不可借書，請先登入')
         return redirect('login')
@@ -93,10 +97,10 @@ def borrowBook(request, book_id):
 def returnBookPage(request):
     if request.method=='POST' and request.POST.get('username'):
         user=User.objects.get(username=request.POST.get('username'))
-        returnList=BorrowingRecord.objects.filter(user=user, is_returned=False)
+        returnList=BorrowingRecord.objects.filter(user=user, is_returned=False).order_by('due_date')
         return render(request,'returnBookPage.html',locals())
     else:
-        return render(request,'returnBookPage.html',{'msg':'請搜尋用戶名...'})
+        return render(request,'returnBookPage.html',{'msg':' '})
 
 def returnBook(request):
     if request.method=='POST':
@@ -106,8 +110,8 @@ def returnBook(request):
             recording=BorrowingRecord.objects.get(id=recordingId)
             recording.is_returned=True
             recording.actual_return_date=timezone.now()
-            recording.book.available_quantity += 1
             recording.save()
+            recording.book.available_quantity += 1
             recording.book.save()
             u=recording.user
         return render(request, 'returnBook.html',locals())
@@ -119,7 +123,7 @@ def returnBook(request):
 
 @login_required
 def getBorrowListByUser(request):
-    borrowList=BorrowingRecord.objects.filter(user=request.user)
+    borrowList=BorrowingRecord.objects.filter(user=request.user).order_by('-borrowing_date','is_returned')
     identityName=identity(request.user)
     return render(request,'getBorrowList.html',locals())
 
@@ -129,11 +133,11 @@ def getNeedReturnBook(request):
     three_days_later = day_now + timezone.timedelta(days=3)
     timeoutReturn=BorrowingRecord.objects.filter(user=request.user,
                                                  is_returned=False,
-                                                 due_date__lt=day_now)
+                                                 due_date__lt=day_now).order_by('due_date')
     
     needReturnList=BorrowingRecord.objects.filter(user=request.user,
                                                   is_returned=False,
-                                                  due_date__lte=three_days_later)  #__gte大於等於 __lte小於等於
+                                                  due_date__lte=three_days_later).order_by('due_date')  #__gte大於等於 __lte小於等於
     identityName=identity(request.user)
     return render(request,'needReturnList.html',locals())
 
