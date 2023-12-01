@@ -13,7 +13,9 @@ urlpatterns = [
     path('borrowBook/<int:book_id>',views.borrowBook, name='borrowBook'),
     path('borrowList/',views.getBorrowListByUser,name='borrowList'),
     path('needReturn/',views.getNeedReturnBook,name='needReturn'),
-
+    path('returnBookPage/',views.returnBookPage,name="returnBookPage"),
+    path('returnBook/',views.returnBook,name="returnBook"),
+    # path('employeeManege/'),
 
     path('login/',loginApp.logins,name='login'),
     path('register/',loginApp.register,name='register'),

@@ -3,6 +3,7 @@ from django.db.models import Count, F
 from django.shortcuts import render, redirect, HttpResponse,  get_object_or_404
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib import messages
 
 '''
@@ -89,9 +90,32 @@ def borrowBook(request, book_id):
         messages.warning(request, '尚未登入不可借書，請先登入')
         return redirect('login')
 
-# 待
+def returnBookPage(request):
+    if request.method=='POST' and request.POST.get('username'):
+        user=User.objects.get(username=request.POST.get('username'))
+        returnList=BorrowingRecord.objects.filter(user=user, is_returned=False)
+        return render(request,'returnBookPage.html',locals())
+    else:
+        return render(request,'returnBookPage.html',{'msg':'請搜尋用戶名...'})
+
 def returnBook(request):
-    return
+    if request.method=='POST':
+        u=None
+        returnBookList=request.POST.getlist('return_books')
+        for recordingId in returnBookList:
+            recording=BorrowingRecord.objects.get(id=recordingId)
+            recording.is_returned=True
+            recording.actual_return_date=timezone.now()
+            recording.book.available_quantity += 1
+            recording.save()
+            recording.book.save()
+            u=recording.user
+        return render(request, 'returnBook.html',locals())
+    else:
+        return redirect('/returnBookPage/')
+
+    
+    
 
 @login_required
 def getBorrowListByUser(request):

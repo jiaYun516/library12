@@ -35,3 +35,5 @@ class BorrowingRecord(models.Model):
 
     def __str__(self):
         return f"{self.user} 借閱 {self.book}"
+    
+
