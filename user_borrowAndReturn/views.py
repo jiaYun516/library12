@@ -118,7 +118,7 @@ def returnBook(request):
             recording.actual_return_date=timezone.now()
             returnCorrect.append(recording)
             recording.save()
-            
+
             recording.book.available_quantity += 1
             recording.book.save()
             u=recording.user
@@ -147,10 +147,38 @@ def getNeedReturnBook(request):
     identityName=identity(request.user)
     return render(request,'needReturnList.html',locals())
 
-def employeeManagePage(request):
-    if not request.user.is_superuser:
-        return redirect('/')
+def librarianManagePage(request):
+    if request.user.is_superuser:
+        librarianList=User.objects.filter(is_staff=True, is_superuser=False)
+        return render(request, 'librarianManagePage.html', locals())
     else:
-        employeeList=User.objects.filter(is_staff=True)
-        return render(request, 'employeeManagePage.html', locals())
+        return redirect('/')
 
+def addLibrarianPage(request):
+    if request.method=='POST':
+        username=request.POST.get('username')
+        if User.objects.filter(username=username).exists():
+            librarian=User.objects.get(username=username)
+            return render(request, 'addLibrarianPage.html',locals())
+        else:
+            return render(request,'addLibrarianPage.html',{'msg':'查無此用戶'})
+    else:
+        return render(request, 'addLibrarianPage.html')
+
+def addLibrarian(request, user_id):
+    if User.objects.filter(id=user_id).exists() and request.user.is_superuser:
+        user=User.objects.get(id=user_id)
+        user.is_staff=True
+        user.save()
+        return render(request, 'addLibrarianPage.html')
+    else:
+        return redirect('/')
+
+def removeLibrarian(request, user_id):
+    if User.objects.filter(id=user_id).exists() and request.user.is_superuser:
+        user=User.objects.get(id=user_id)
+        user.is_staff=False
+        user.save()
+        return redirect('/librarianManage/')
+    else:
+        return redirect('/')

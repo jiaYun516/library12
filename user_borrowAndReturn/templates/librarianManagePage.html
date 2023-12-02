@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}猴子的叢林{% endblock title %}
+{% block headmessage %}
+<div style="display: flex;justify-content: space-between; align-items: center;">
+    <h3 style='font-family:微軟正黑體;'>館員管理</h3>
+    <a style='font-family:微軟正黑體;' href="/">回首頁</a>
+</div>
+{% endblock headmessage %}
+{% block content%}
+    <a href="/addLibrarianPage/">新增館員</a>
+    {% if librarianList %}
+    <table>
+        {% for librarian in librarianList %}
+            <tr>
+                <td>{{ librarian.last_name }}{{ librarian.first_name }}</td>
+                <td>{{ librarian.email }}</td>
+                <td><a href="/removeLibrarian/{{ librarian.id }}", onclick="alert('確定降職{{ librarian.first_name }}嗎');">降職</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>尚無圖書館員</p>    
+{% endif %}
+{% endblock content %}

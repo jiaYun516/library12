@@ -15,8 +15,10 @@ urlpatterns = [
     path('needReturn/',views.getNeedReturnBook,name='needReturn'),
     path('returnBookPage/',views.returnBookPage,name="returnBookPage"),
     path('returnBook/',views.returnBook,name="returnBook"),
-    path('employeeManage/', views.employeeManagePage,name='employeeManage'),
-
+    path('librarianManage/', views.librarianManagePage,name='employeeManage'),
+    path('addLibrarianPage/',views.addLibrarianPage,name='addLibrarianPage'),
+    path('addLibrarian/<int:user_id>',views.addLibrarian,name='addLibrarian'),
+    path('removeLibrarian/<int:user_id>',views.removeLibrarian,name='removeLibrarian'),
     path('login/',loginApp.logins,name='login'),
     path('register/',loginApp.register,name='register'),
     path('logout/',loginApp.logouts,name='logout'),
