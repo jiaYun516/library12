@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}猴子的叢林{% endblock title %}
+{% block headmessage %}
+<div style="display: flex;justify-content: space-between; align-items: center;">
+    <h3 style='font-family:微軟正黑體;'>館員管理</h3>
+    <a style='font-family:微軟正黑體;' href="/">回首頁</a>
+</div>
+{% endblock headmessage %}
+{% block content%}
+    <a href="">新增館員</a>
+    {% if employeeList %}
+    <table>
+        {% for l in returnList %}
+            <tr>
+                <td>{{ l.book.title }}</td>
+                <td>{{ l.borrowing_date }}</td>
+                {% now "Y-m-d" as current_datetime %}
+                {% if l.due_date > now and not l.is_returned %}
+                    <td style="color: red;">{{ l.due_date }}</td>
+                {% else %}
+                    <td>{{ l.due_date }}</td>
+                {% endif %}
+                <form action="/returnBook/" method="post">
+                    {% csrf_token %} 
+                <td><input type="checkbox" name="return_books" value="{{ l.id }}"></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <button type="submit">歸還</button>
+</form>
+{% else %}
+    {% if msg %}
+        <p>{{ msg }}</p>
+    {% else %}
+        <p>尚未有未歸還書籍</p>
+    {% endif %}
+    {% endif %}
+{% endblock content %}

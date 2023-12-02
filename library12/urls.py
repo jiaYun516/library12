@@ -15,7 +15,7 @@ urlpatterns = [
     path('needReturn/',views.getNeedReturnBook,name='needReturn'),
     path('returnBookPage/',views.returnBookPage,name="returnBookPage"),
     path('returnBook/',views.returnBook,name="returnBook"),
-    # path('employeeManege/'),
+    path('employeeManage/', views.employeeManagePage,name='employeeManage'),
 
     path('login/',loginApp.logins,name='login'),
     path('register/',loginApp.register,name='register'),

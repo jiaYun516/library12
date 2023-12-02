@@ -110,21 +110,22 @@ def returnBookPage(request):
 def returnBook(request):
     if request.method=='POST':
         u=None
+        returnCorrect=[]
         returnBookList=request.POST.getlist('return_books')
         for recordingId in returnBookList:
             recording=BorrowingRecord.objects.get(id=recordingId)
             recording.is_returned=True
             recording.actual_return_date=timezone.now()
+            returnCorrect.append(recording)
             recording.save()
+            
             recording.book.available_quantity += 1
             recording.book.save()
             u=recording.user
-        return render(request, 'returnBook.html',locals())
+        return render(request, 'returnBook.html',{'returnCorrect':returnCorrect,
+                                                  'u':u})
     else:
-        return redirect('/returnBookPage/')
-
-    
-    
+        return redirect('/returnBookPage/')   
 
 @login_required
 def getBorrowListByUser(request):
@@ -146,6 +147,10 @@ def getNeedReturnBook(request):
     identityName=identity(request.user)
     return render(request,'needReturnList.html',locals())
 
-
-
+def employeeManagePage(request):
+    if not request.user.is_superuser:
+        return redirect('/')
+    else:
+        employeeList=User.objects.filter(is_staff=True)
+        return render(request, 'employeeManagePage.html', locals())
 
