@@ -20,6 +20,7 @@ class Book(models.Model):
     available_quantity = models.PositiveIntegerField()
     publication_date = models.DateField(null=True,blank=True)
     content=models.TextField(max_length=500,null=True,blank=True)
+    isOn=models.BooleanField(default=True)
 
     def __str__(self):
         return self.title

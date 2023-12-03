@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{%block title%}猴子的叢林{% endblock title %}
+{% block headmessage %}
+<div style="display: flex;justify-content: space-between; align-items: center;">
+    <h3 style='font-family:微軟正黑體;'>{{ request.user.first_name }} {{ identityName }}的借閱列表</h3>
+    <a style='font-family:微軟正黑體;' href="/">回首頁</a>
+</div>
+{%endblock headmessage%}
+{% block content%}
+<a href="/">新增書籍</a>
+<a href="">新增分類</a>
+{% if BookList %}
+<table>
+<tr>
+    <td>書名</td>
+    <td>作者</td>
+    <td>分類</td>
+    <td>館內餘量</td>
+
+</tr>
+       {% for book in BookList %}
+       <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.category.name }}</td>
+            <td>{{ book.available_quantity }}</td>
+            <td><a href="/bookModify/{{ book.id }}">修改</a></td>
+            {% if book.isOn %}
+                <td><a href="/bookHide/{{ book.id }}" onclick="alert('確認隱藏此書籍嗎')">隱藏</a></td>
+            {% else %}
+                <td><a href="/bookShow/{{ book.id }}" onclick="alert('確認顯示此書籍嗎')">顯示</a></td>
+            {% endif %}
+            </tr> 
+        {% endfor %} 
+    
+    
+</table>
+    
+{% else %}
+    <p>尚未有書籍</p>
+{% endif %}
+{% endblock content %}

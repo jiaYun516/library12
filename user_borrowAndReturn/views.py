@@ -199,3 +199,56 @@ def ModifyInformation(request):
             return redirect('login')
     return render(request, 'modifyInformation.html')
 
+def addBook(request):
+    if request.method=='POST':
+        return render(request, 'addBook.html', locals())
+    else:
+        return render(request, 'addBook.html')
+def bookManagePage(request):
+    if request.user.is_staff:
+        BookList=Book.objects.all()
+        return render(request, 'bookManagePage.html',locals())
+    else:
+        return redirect('/')
+
+def bookModify(request, book_id):
+    if Book.objects.filter(id=book_id).exists():
+        book=Book.objects.get(id=book_id)
+        categories=Category.objects.all()
+        if request.method=='POST':
+            title=request.POST.get('title')
+            available_quantity=request.POST.get('available_quantity')
+            content=request.POST.get('content')
+            categoryId=request.POST.get('category')
+            category=Category.objects.get(id=categoryId)
+
+            book.title=title
+            book.available_quantity=available_quantity
+            book.content=content
+            book.category=category
+
+            book.save()
+            msg='修改成功'
+            return render(request, 'bookModify.html', locals())
+        else:
+            return render(request, 'bookModify.html', locals())
+    else:
+        return redirect('/')
+    
+def bookHide(request, book_id):
+    if Book.objects.filter(id=book_id).exists():
+        book=Book.objects.get(id=book_id)
+        book.isOn=False
+        book.save()
+        return redirect('/bookManagePage/')
+    else:
+        return redirect('/')
+    
+def bookShow(request, book_id):
+    if Book.objects.filter(id=book_id).exists():
+        book=Book.objects.get(id=book_id)
+        book.isOn=True
+        book.save()
+        return redirect('/bookManagePage/')
+    else:
+        return redirect('/')

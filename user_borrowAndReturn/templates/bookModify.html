@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{%block title%}猴子的叢林{% endblock title %}
+{% block headmessage %}
+<div style="display: flex;justify-content: space-between; align-items: center;">
+    <h3 style='font-family:微軟正黑體;'>{{ request.user.first_name }} {{ identityName }}的借閱列表</h3>
+    <a style='font-family:微軟正黑體;' href="/">回首頁</a>
+</div>
+{%endblock headmessage%}
+{% block content%}
+<form action="/bookModify/{{ book.id }}" method="post">
+    <h3 style="color: red;">{{ msg }}</h3>
+    {% csrf_token %}
+    <div class="field">
+        <label for="title">書名： </label>
+        <input type="text" name="title" id="" value="{{ book.title }}">
+    </div>
+    <div class="field">
+        <label for="category">分類： </label>
+        <select id="category" name="category">
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if category.id == book.category.id %}selected{% endif %}>
+                    {{ category.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <div class="field">
+        <label for="available_quantity">館存： </label>
+        <input type="number" name="available_quantity" id="" value="{{ book.available_quantity }}">
+    </div>
+    <div class="field">
+        <label for="content">介紹： </label>
+        <textarea id="content" name="content" style="height: 300px; width: 700px;">{{ book.content }}</textarea>
+    </div>
+    <input type="submit" value="修改">
+</form>
+{% endblock content %}
