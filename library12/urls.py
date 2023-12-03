@@ -20,11 +20,15 @@ urlpatterns = [
     path('returnBookPage/',views.returnBookPage,name="returnBookPage"),
     path('returnBook/',views.returnBook,name="returnBook"),
     
-    # 書籍還禮
+    # 書籍管理
     path('bookManagePage/',views.bookManagePage,name='bookManagePage'),
+    path('addBook/',views.addBook,name='addBook'),
     path('bookModify/<int:book_id>', views.bookModify, name='bookModify'),
     path('bookHide/<int:book_id>', views.bookHide, name='bookHide'),
     path('bookShow/<int:book_id>', views.bookShow, name='bookShow'),
+
+    #分類管理
+    path('addCategory/',views.addCategory,name='addCategory'),
 
     # 權限
     path('librarianManage/', views.librarianManagePage,name='employeeManage'),

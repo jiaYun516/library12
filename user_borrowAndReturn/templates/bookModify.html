@@ -2,8 +2,8 @@
 {%block title%}猴子的叢林{% endblock title %}
 {% block headmessage %}
 <div style="display: flex;justify-content: space-between; align-items: center;">
-    <h3 style='font-family:微軟正黑體;'>{{ request.user.first_name }} {{ identityName }}的借閱列表</h3>
-    <a style='font-family:微軟正黑體;' href="/">回首頁</a>
+    <h3 style='font-family:微軟正黑體;'>{{ book.title }} 資訊修改</h3>
+    <a style='font-family:微軟正黑體;' href="/bookManagePage/">回管理頁</a>
 </div>
 {%endblock headmessage%}
 {% block content%}

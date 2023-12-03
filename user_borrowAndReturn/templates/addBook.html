@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{%block title%}猴子的叢林{% endblock title %}
+{% block headmessage %}
+<div style="display: flex;justify-content: space-between; align-items: center;">
+    <h3 style='font-family:微軟正黑體;'>新增書籍</h3>
+    <a style='font-family:微軟正黑體;' href="/">回首頁</a>
+</div>
+{%endblock headmessage%}
+{% block content%}
+<a href="/bookManagePage/">回到管理頁</a>
+<form action="/addBook/" method="post">
+    <h3 style="color: red;">{{ msg }}</h3>
+    {% csrf_token %}
+    <div class="field">
+        <label for="title">書名： </label>
+        <input type="text" name="title" id="">
+    </div>
+    <div class="field">
+        <label for="author">作者： </label>
+        <input type="text" name="author" id="">
+    </div>
+    <div class="field">
+        <label for="cover">封面： </label>
+        <input type="text" name="cover" id="">
+    </div>
+    <div class="field">
+        <label for="category">分類： </label>
+        <select id="category" name="category">
+            {% for category in categories %}
+                <option value="{{ category.id }}">
+                    {{ category.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div> 
+    <div class="field">
+        <label for="publication_date">出版日期： </label>
+        <input type="date" name="publication_date" id="">
+    </div>
+    <div class="field">
+        <label for="available_quantity">館存： </label>
+        <input type="number" name="available_quantity" id="">
+    </div>
+    <div class="field">
+        <label for="content">介紹： </label>
+        <textarea id="content" name="content" style="height: 300px; width: 700px;"></textarea>
+    </div>
+    <input type="submit" value="新增">
+</form>
+{% endblock content %}
