@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}猴子的叢林{% endblock title %}
+{% block headmessage %}
+<div style="display: flex;justify-content: space-between; align-items: center;">
+    <h3 style='font-family:微軟正黑體;'>密碼修改</h3>
+    <a style='font-family:微軟正黑體;' href="/">回首頁</a>
+</div>
+{% endblock headmessage %}
+
+{% block content%}
+    <form action="/modifyInformation/" method="post">
+        {% csrf_token %}
+        <h3 style="color: red;">{{ msg }}</h3>
+        <div class="field">
+            <label for="username">原密碼： </label>
+            <input type="password" name="password" id="">
+        </div>
+        <div class="field">
+            <label for="password">新密碼： </label>
+            <input type="password" name="newPassword1" id="">
+        </div>
+        <div class="field">
+            <label for="password2">新密碼確認： </label>
+            <input type="password" name="newPassword2" id="">
+        </div>
+        <input type="submit" value="更改">
+    </form>
+{% endblock content %}
+{% block scripts %}
+    {{ block.super }}
+    {% if success_alert %}
+        <script>
+            alert('更改成功');
+            window.location.href = "/login/";  // 跳转到主页
+        </script>
+    {% endif %}
+{% endblock scripts %}

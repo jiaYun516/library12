@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
-
+from django.contrib.auth.hashers import check_password
 '''
 annotate(borrow_count=Count('borrowingrecord')): 為每本書加上借閱量計算的項目
 book對象調用count方法計算此book對象在borrowingrecord表中的次數
@@ -129,7 +129,7 @@ def returnBook(request):
 
 @login_required
 def getBorrowListByUser(request):
-    borrowList=BorrowingRecord.objects.filter(user=request.user).order_by('-borrowing_date','is_returned')
+    borrowList=BorrowingRecord.objects.filter(user=request.user).order_by('-borrowing_date','-is_returned')
     identityName=identity(request.user)
     return render(request,'getBorrowList.html',locals())
 
@@ -182,3 +182,20 @@ def removeLibrarian(request, user_id):
         return redirect('/librarianManage/')
     else:
         return redirect('/')
+
+def ModifyInformation(request):
+    if request.method=='POST':
+        password=request.POST.get('password')
+        newPassword1=request.POST.get('newPassword1')
+        newPassword2=request.POST.get('newPassword2')
+        if not check_password(password, request.user.password):
+            return render(request, 'modifyInformation.html', {'msg':'密碼錯誤'})
+        elif newPassword1 != newPassword2:
+            return render(request, 'modifyInformation.html', {'msg':'兩次密碼輸入不同'})
+        else:
+            request.user.set_password(newPassword1)
+            request.user.save()
+            messages.success(request, '密碼修改成功，請重新登入')
+            return redirect('login')
+    return render(request, 'modifyInformation.html')
+
