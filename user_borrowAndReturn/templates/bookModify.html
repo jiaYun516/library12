@@ -24,10 +24,18 @@
             {% endfor %}
         </select>
     </div>
-    
+    <div class="field">
+        <label for="cover">封面： </label>
+        <input type="text" name="cover" id="" value="{{ book.cover }}">
+        <img src="{{ book.cover }}" style="width: 200px; padding:0 30px;">
+    </div>
     <div class="field">
         <label for="available_quantity">館存： </label>
         <input type="number" name="available_quantity" id="" value="{{ book.available_quantity }}">
+    </div>
+    <div class="field">
+        <label for="publication_date">出版日期： </label>
+        <input type="date" name="publication_date" id="" value='{{ book.publication_date|date:"Y-m-d" }}'>
     </div>
     <div class="field">
         <label for="content">介紹： </label>

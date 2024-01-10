@@ -43,15 +43,15 @@ def searchById(request, id):
 
 
 def searchByCategory(request, category_id):
-    try:
-        books=Book.objects.filter(category_id=category_id, isOn=True).annotate(borrow_count=Count('borrowingrecord')).order_by('-borrow_count', 'title')
-        category = Category.objects.filter(id=category_id)
+    # try:
+        category = Category.objects.filter(id=category_id).first()
+        books=Book.objects.filter(category=category, isOn=True).annotate(borrow_count=Count('borrowingrecord')).order_by('-borrow_count', 'title')
         if books:
             return render(request, 'searchByCategoryPage.html', {'books':books,'category':category})
         else:
             return render(request, 'searchByCategoryPage.html', {'msg':'此類別暫無書籍','category':category})
-    except:
-        return redirect('/')
+    # except:
+        # return redirect('/')
 
 def search(request):
     kw = request.GET.get('keyWord')
@@ -200,9 +200,14 @@ def bookModify(request, book_id):
             available_quantity=request.POST.get('available_quantity')
             content=request.POST.get('content')
             categoryId=request.POST.get('category')
+            cover=request.POST.get('cover')
+            publication_date=request.POST.get('publication_date')
             category=Category.objects.get(id=categoryId)
+            
 
             book.title=title
+            book.cover=cover
+            book.publication_date=publication_date
             book.available_quantity=available_quantity
             book.content=content
             book.category=category
