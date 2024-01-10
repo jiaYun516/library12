@@ -3,14 +3,16 @@
 {% block headmessage %}
 <div style="display: flex;justify-content: space-between; align-items: center;">
     <h3 style='font-family:微軟正黑體;'>{{ request.user.first_name }} {{ identityName }}的待還</h3>
-    <a style='font-family:微軟正黑體;' href="/">回首頁</a>
+    <a href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
 </div>
+{% load static%}
+<link type="text/css" rel="stylesheet" href="{% static 'css/ManagePage.css' %}">
 {%endblock headmessage%}
 {% block content%}
 <div>
     <h2>逾期圖書</h2>
     {% if timeoutReturn %}
-        <table>
+        <table class="needReturn">
             <tr>
                 <td>書名</td>
                 <td>借閱日期</td>
@@ -32,19 +34,21 @@
 <div>
     <h2>即將到期圖書</h2>
     {% if needReturnList %}
-        <table>
+        <table class="needReturn">
             <tr>
                 <td>書名</td>
                 <td>借閱日期</td>
                 <td>應還日期</td>
             </tr>
-            {% for l in borrowList %}
+            {% for l in needReturnList %}
                 <tr>
                     <td>{{ l.book.title }}</td>
                     <td>{{ l.borrowing_date }}</td>
                     {% now "Y-m-d" as current_datetime %}
                     {% if l.due_date > now %}
                         <td style="color: red;">{{ l.due_date }}</td>
+                    {% else %}
+                        <td>{{ l.due_date }}</td>
                     {% endif %}
                 </tr>
             {% endfor %}

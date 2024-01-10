@@ -3,12 +3,14 @@
 {% block headmessage %}
 <div style="display: flex;justify-content: space-between; align-items: center;">
     <h3 style='font-family:微軟正黑體;'>{{ request.user.first_name }} {{ identityName }}的借閱列表</h3>
-    <a style='font-family:微軟正黑體;' href="/">回首頁</a>
+    <a href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
 </div>
+{% load static%}
+<link type="text/css" rel="stylesheet" href="{% static 'css/ManagePage.css' %}">
 {%endblock headmessage%}
 {% block content%}
 {% if borrowList %}
-    <table>
+    <table class="borrowList">
         <tr>
             <td>書名</td>
             <td>借閱日期</td>
@@ -25,7 +27,13 @@
                 {% else %}
                     <td>{{ l.due_date }}</td>
                 {% endif %}
-                <td>{{ l.is_returned}}</td>
+                <td>
+                    {% if l.is_returned %}
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    {% else %}
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    {% endif %}
+                </td>
             </tr>
         {% endfor %}
     </table>

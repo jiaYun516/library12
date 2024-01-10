@@ -128,7 +128,8 @@ def getNeedReturnBook(request):
     
     needReturnList=BorrowingRecord.objects.filter(user=request.user,
                                                   is_returned=False,
-                                                  due_date__lte=three_days_later).order_by('due_date')  #__gte大於等於 __lte小於等於
+                                                  due_date__lte=three_days_later,
+                                                  due_date__gte=day_now).order_by('due_date')  #__gte大於等於 __lte小於等於
     identityName=identity(request.user)
     return render(request,'needReturnList.html',locals())
 

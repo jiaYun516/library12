@@ -3,7 +3,7 @@
 {% block headmessage %}
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <h3 style='font-family:標楷體;'>{{ keyWord }} 的相關搜尋：</h3>
-    <a style='font-family:微軟正黑體;' href="/">回首頁</a> 
+    <a href="/"><i class="fa fa-home" aria-hidden="true"></i></a> 
 </div>
 {%endblock headmessage%}
 {% block content%}
@@ -13,9 +13,7 @@
     {%for book in books%}
         <div class='card'>
             <div class='card-header'>
-                <p style='font-family:微軟正黑體;font-size:14pt;font-weight:bold;'>
-                    <a href='/book/{{book.id}}/'>{{book.title}}</a>
-                </p>
+                <a href='/book/{{book.id}}/'>{{book.title}}<i class="fa fa-hand-o-left" aria-hidden="true"></i></a>
             </div>
             <br>
             <div class='card-body' style='background-color:#ffffff'>

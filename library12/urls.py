@@ -26,7 +26,7 @@ urlpatterns = [
     path('bookModify/<int:book_id>', views.bookModify, name='bookModify'),
     path('bookHide/<int:book_id>', views.bookHide, name='bookHide'),
     path('bookShow/<int:book_id>', views.bookShow, name='bookShow'),
-     path('bookDelete/<int:book_id>', views.bookDelete, name='bookDelete'),
+    path('bookDelete/<int:book_id>', views.bookDelete, name='bookDelete'),
 
     #分類管理
     path('categoryManagePage/',views.categoryManagePage,name='categoryManagePage'),

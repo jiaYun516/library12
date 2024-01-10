@@ -11,11 +11,22 @@ td, th {
     text-align: left;
     padding: 8px; /* 调整单元格内边距 */
 }
-
-td:nth-last-child(-n+3){
-    width: 8%;
+.book td:nth-last-child(-n+3){
+    width: 10%;
+}
+.category td:nth-last-child(-n+3){
+    width: 7%;
 }
 
 .librarian td:nth-last-child(-n+4){
     width: 15%;
+}
+.borrowList td:nth-last-child(-n){
+    width: 10%;
+}
+.return td:nth-last-child(-n){
+    width: 3%;
+}
+.needReturn td{
+    width: 20%;
 }

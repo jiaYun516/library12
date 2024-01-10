@@ -3,12 +3,11 @@
 {% block headmessage %}
 <div style="display: flex;justify-content: space-between; align-items: center;">
     <h3 style='font-family:微軟正黑體;'>新增館員</h3>
-    <a style='font-family:微軟正黑體;' href="/">回首頁</a>
+    <a href="/librarianManage/"><i class="fa fa-reply" aria-hidden="true"></i></a>
 </div>
 {% endblock headmessage %}
 
 {% block content%}
-    <a href="/librarianManage/">返回館員管理</a>
     <form action="/addLibrarianPage/" method="post">
         {% csrf_token %}
         <input type="text" name="username" placeholder="輸入用戶帳號...">

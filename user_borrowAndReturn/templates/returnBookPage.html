@@ -3,17 +3,20 @@
 {% block headmessage %}
 <div style="display: flex;justify-content: space-between; align-items: center;">
     <h3 style='font-family:微軟正黑體;'>圖書歸還系統</h3>
-    <a style='font-family:微軟正黑體;' href="/">回首頁</a>
+    <a href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
 </div>
+{% load static%}
+<link type="text/css" rel="stylesheet" href="{% static 'css/ManagePage.css' %}">
 {%endblock headmessage%}
+
 {% block content%}
 <form action="/returnBookPage/" method="post">
     {% csrf_token %}
     <input type="text" name="username" placeholder="輸入還書用戶帳號...">
-    <button type="submit">搜索</button>
+    <button type="submit" class="searchBtn"><i class="fa fa-search" aria-hidden="true"></i></button>
 </form>
     {% if returnList %}
-        <table>
+        <table class="return">
             <tr>
                 <td>書名</td>
                 <td>借閱日期</td>

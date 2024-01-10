@@ -3,7 +3,7 @@
 {% block headmessage %}
 <div style="display: flex;justify-content: space-between; align-items: center;">
     <h2>書籍介紹</h2>
-    <a style='font-family:微軟正黑體;' href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
+    <a href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
 </div>
 {% load static %}
 <link type="text/css" rel="stylesheet" href="{% static 'css/bookPage.css' %}">
@@ -12,14 +12,14 @@
 {% block content%}
 <div class="block">
     <div class="text">
-        <h3 style='font-family:微軟正黑體;'>{{book.title}}</h3>
+        <h3>{{book.title}}</h3>
         <p>作者:{{book.author}}</p>
         <p>{{ book.content }}</p>
         <br>
         <p>出版日期:{{book.publication_date}}</p>
 
         {% if msg %}
-            <p>{{ msg }}</p>
+            <p style="color: red; font-weight: bold;">{{ msg }}</p>
         {% else %}
         <button onclick="window.location.href='/borrowBook/{{ book.id }}'">借閱此書</button>
         {% endif %}

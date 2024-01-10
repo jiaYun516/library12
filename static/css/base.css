@@ -18,11 +18,9 @@ a{
 .col-md-3 li:hover{
     background-color: rgb(231, 231, 231);
 }
-.col-sm-9 .card-header{
-    padding: 15px 0 0 20px;
-}
 .col-sm-9 .card-header a{
     font-size: 24px;
+    font-weight:bold;
 }
 .headerBlock{
     display: flex;
@@ -38,12 +36,26 @@ a{
 .search{
     order: 1;
 }
-.searchBtns{
+.searchBtn{
     padding: 0 8px;
     margin-right: 15px;
 }
-.searchBtns:hover{
+.searchBtn:hover{
     background-color: black;
     color: white;
     transition: ease-in-out 0.15s;
+}
+.fa-hand-o-left{
+    margin-left: 20px;
+}
+.fa-hand-o-left {
+    margin-left: 20px;
+}
+.fa-home, .fa-reply{
+    font-size: 40px; 
+    color: gray;
+    margin-right: 25px;
+}
+.fa-home:hover, .fa-reply:hover{
+    color: black;
 }

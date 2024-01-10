@@ -4,7 +4,7 @@
 {% block headmessage %}
 <div style="display: flex;justify-content: space-between; align-items: center;">
     <h3 style='font-family:微軟正黑體;'>分類管理</h3>
-    <a style='font-family:微軟正黑體;' href="/">回首頁</a>
+    <a href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
 </div>
 {% load static%}
 <link type="text/css" rel="stylesheet" href="{% static 'css/ManagePage.css' %}">
@@ -14,7 +14,7 @@
 <button onclick="window.location.href='/addCategory/'">新增分類</button>
 <button onclick="window.location.href='/bookManagePage/'">書籍管理</button>
 {% if categoryList %}
-<table>
+<table class="category">
 <tr>
     <td>分類名稱</td>
     <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
