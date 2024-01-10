@@ -45,12 +45,11 @@ def searchById(request, id):
 def searchByCategory(request, category_id):
     try:
         books=Book.objects.filter(category_id=category_id, isOn=True).annotate(borrow_count=Count('borrowingrecord')).order_by('-borrow_count', 'title')
+        category = Category.objects.filter(id=category_id)
         if books:
-            category = books.first().category
-            result=f"<h2>{category}</h2>"
-            for book in books:
-                result += f"<p>{book.title}</p> <p>作者:{book.author}</p> <p>館內餘量:{book.available_quantity}   借閱量：{book.borrow_count}</p><br>"
             return render(request, 'searchByCategoryPage.html', {'books':books,'category':category})
+        else:
+            return render(request, 'searchByCategoryPage.html', {'msg':'此類別暫無書籍','category':category})
     except:
         return redirect('/')
 

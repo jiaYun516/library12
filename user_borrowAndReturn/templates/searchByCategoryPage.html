@@ -8,6 +8,7 @@
 {% endblock headmessage %}
 
 {% block content %}
+{% if books %}
 {% for book in books %}
 <div class='card'>
     <div class='card-header'>
@@ -27,5 +28,8 @@
     </div>
 </div>
 <br>
+{% endfor %}
+{% else %}
+<h2>{{ msg }}</h2>
 {% endfor %}
 {% endblock content %}
