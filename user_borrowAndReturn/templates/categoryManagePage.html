@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{%block title%}猴子的叢林{% endblock title %}
+{% block headmessage %}
+<div style="display: flex;justify-content: space-between; align-items: center;">
+    <h3 style='font-family:微軟正黑體;'>分類管理</h3>
+    <a style='font-family:微軟正黑體;' href="/">回首頁</a>
+</div>
+{% load static%}
+<link type="text/css" rel="stylesheet" href="{% static 'css/ManagePage.css' %}">
+{%endblock headmessage%}
+
+{% block content%}
+<button onclick="window.location.href='/addCategory/'">新增分類</button>
+<button onclick="window.location.href='/bookManagePage/'">書籍管理</button>
+{% if categoryList %}
+<table>
+<tr>
+    <td>分類名稱</td>
+    <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
+    <td><i class="fa fa-toggle-on" aria-hidden="true"></i></td>
+    <td><i class="fa fa-trash" aria-hidden="true"></i></td>
+</tr>
+       {% for category in categoryList %}
+       <tr>
+            <td>{{ category.name }}</td>
+            <td><a href="/categoryModify/{{ category.id }}">修改</a></td>
+            {% if category.isOn %}
+                <td class="td"><a href="/categoryHide/{{ category.id }}" onclick="alert('確認隱藏此標籤嗎')">隱藏</a></td>
+            {% else %}
+                <td><a href="/categoryShow/{{ category.id }}" onclick="alert('確認顯示此標籤嗎')">顯示</a></td>
+            {% endif %}
+                <td><a href="/categoryDelete/{{ category.id }}" onclick="alert('確定刪除此分類嗎')">刪除</a></td>
+            </tr> 
+        {% endfor %} 
+</table>
+{% else %}
+    <p>尚未有標籤</p>
+{% endif %}
+{% endblock content %}

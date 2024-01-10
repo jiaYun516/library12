@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 # 類型
 class Category(models.Model):
     name=models.CharField(max_length=100)
+    isOn=models.BooleanField(default=True)
 
     def __str__(self):
         return self.name

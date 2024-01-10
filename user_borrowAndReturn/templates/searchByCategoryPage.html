@@ -22,6 +22,7 @@
         <p>類型:<a href='/category/{{ book.category_id }}/'>{{ book.category }}</a></p>
         <p>借閱量：{{ book.borrow_count }}</p>
         <p>館內餘量:{{ book.available_quantity }}</p>
+        <p>當前借閱數：{{ book.reading }}</p>
     </div>
     <div class='card-footer'  style='background-color:#cacaca'>
         <p>{{ book.content | truncatechars:40 }}</p>

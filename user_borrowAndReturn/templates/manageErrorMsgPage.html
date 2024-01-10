@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{%block title%}猴子的叢林{% endblock title %}
+{% block headmessage %}
+<div style="display: flex;justify-content: space-between; align-items: center;">
+    <h3 style='font-family:微軟正黑體;'>{{ q }}</h3>
+    <a style='font-family:微軟正黑體;' href="/{{ k }}ManagePage/">回管理頁</a>
+</div>
+{%endblock headmessage%}
+{% block content%}
+<p>{{ msg }}</p>
+{% endblock content %}

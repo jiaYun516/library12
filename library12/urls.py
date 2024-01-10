@@ -26,9 +26,15 @@ urlpatterns = [
     path('bookModify/<int:book_id>', views.bookModify, name='bookModify'),
     path('bookHide/<int:book_id>', views.bookHide, name='bookHide'),
     path('bookShow/<int:book_id>', views.bookShow, name='bookShow'),
+     path('bookDelete/<int:book_id>', views.bookDelete, name='bookDelete'),
 
     #分類管理
+    path('categoryManagePage/',views.categoryManagePage,name='categoryManagePage'),
     path('addCategory/',views.addCategory,name='addCategory'),
+    path('categoryModify/<int:category_id>', views.categoryModify, name='categoryModify'),
+    path('categoryHide/<int:category_id>', views.categoryHide, name='categoryHide'),
+    path('categoryShow/<int:category_id>', views.categoryShow, name='categoryShow'),
+    path('categoryDelete/<int:category_id>', views.categoryDelete, name='categoryDelete'),
 
     # 權限
     path('librarianManage/', views.librarianManagePage,name='employeeManage'),

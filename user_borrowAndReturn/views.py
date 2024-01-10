@@ -185,7 +185,7 @@ def ModifyInformation(request):
     return render(request, 'modifyInformation.html')
     
 def bookManagePage(request):
-    if request.user.is_staff:
+    if request.user.is_superuser:
         BookList=Book.objects.all()
         return render(request, 'bookManagePage.html',locals())
     else:
@@ -257,6 +257,28 @@ def bookShow(request, book_id):
     else:
         return redirect('/')
 
+def bookDelete(request, book_id):
+    # try:
+        book=Book.objects.filter(id=book_id).first()
+        borrowingRecord=BorrowingRecord.objects.filter(book=book, is_returned=False)
+        if borrowingRecord:
+            q='圖書刪除錯誤'
+            msg='尚有用戶借閱此無法刪除，可以選擇隱藏書籍哦'
+            k='book'
+            return render(request, 'manageErrorMsgPage.html', locals())
+        else:
+            book.delete()
+            return redirect('/bookManagePage/')
+    # except:
+    #     return redirect('/')
+
+def categoryManagePage(request):
+    if request.user.is_superuser:
+        categoryList=Category.objects.all()
+        return render(request, 'categoryManagePage.html',locals())
+    else:
+        return redirect('/')
+
 def addCategory(request):
     if request.method=='POST':
         name=request.POST.get('name')
@@ -264,3 +286,50 @@ def addCategory(request):
         msg='新增成功'
         return render(request, 'addCategory.html', locals())
     return render(request, 'addCategory.html', locals())
+
+def categoryModify(request, category_id):
+    category=Category.objects.filter(id=category_id).first()
+    if category:
+        if request.method=='POST':
+            name=request.POST.get('name')
+            category.name=name
+            category.save()
+            msg='修改成功'
+            return render(request, 'categoryModify.html', locals())
+        else:
+            return render(request, 'categoryModify.html', locals())
+    else:
+        return redirect('/')
+
+def categoryHide(request, category_id):
+    category=Category.objects.filter(id=category_id).first()
+    if category:
+        category.isOn=False
+        category.save()
+        return redirect('/categoryManagePage/')
+    else:
+        return redirect('/')
+    
+def categoryShow(request, category_id):
+    category=Category.objects.filter(id=category_id).first()
+    if category:
+        category.isOn=True
+        category.save()
+        return redirect('/categoryManagePage/')
+    else:
+        return redirect('/')
+
+def categoryDelete(request, category_id):
+    try:
+        category=Category.objects.filter(id=category_id).first()
+        book=Book.objects.filter(category=category)
+        if book:
+            q='分類刪除錯誤'
+            msg='尚有書籍在此分類無法刪除，可以選擇隱藏分類哦'
+            k='category'
+            return render(request, 'manageErrorMsgPage.html', locals())
+        else:
+            category.delete()
+            return redirect('/categoryManagePage/')
+    except:
+        return redirect('/')

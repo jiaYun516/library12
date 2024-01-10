@@ -2,16 +2,21 @@
 <div style="text-align: center;padding: 40px 0;margin: 0;">
     <p>11056012吳佳耘   11056015許有騫  11056051粱詔恩</p>
 </div>
-<div class='well'>
-    <img src="{% static "img/book.png" %}" height="100">
-</div>
-<div style="display: flex; justify-content: space-between;">
-    <div>
+
+<div class="headerBlock">
+    <div class='icon'>
+        <img src="{% static "img/book.png" %}" height="100">
+    </div>
+    <div class="headerText">
         <h1 style="font-family:微軟正黑體;">歡迎光臨 猴子的叢林圖書館</h1> 
     </div>
-    <form method="GET" action="{% url 'search' %}">
-        <input type="text" name="keyWord" placeholder="搜索圖書...">
-        <button type="submit">搜索</button>
-    </form>
+    <div class="search">
+        <form method="GET" action="{% url 'search' %}">
+            <input type="text" name="keyWord" placeholder="搜索圖書...">
+            <button type="submit" class="searchBtns"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </form>
+    </div>
 </div>
+
+
 

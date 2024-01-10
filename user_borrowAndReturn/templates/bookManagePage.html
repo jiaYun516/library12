@@ -5,10 +5,14 @@
     <h3 style='font-family:微軟正黑體;'>書籍管理</h3>
     <a style='font-family:微軟正黑體;' href="/">回首頁</a>
 </div>
+{% load static%}
+<link type="text/css" rel="stylesheet" href="{% static 'css/ManagePage.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {%endblock headmessage%}
+
 {% block content%}
-<a href="/addBook/">新增書籍</a>
-<a href="/addCategory/">新增分類</a>
+<button onclick="window.location.href='/addBook/'">新增書籍</button>
+<button onclick="window.location.href='/categoryManagePage/'">分類管理</button>
 {% if BookList %}
 <table>
 <tr>
@@ -16,6 +20,9 @@
     <td>作者</td>
     <td>分類</td>
     <td>館內餘量</td>
+    <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
+    <td><i class="fa fa-toggle-on" aria-hidden="true"></i></td>
+    <td><i class="fa fa-trash" aria-hidden="true"></i></td>
 </tr>
        {% for book in BookList %}
        <tr>
@@ -29,6 +36,7 @@
             {% else %}
                 <td><a href="/bookShow/{{ book.id }}" onclick="alert('確認顯示此書籍嗎')">顯示</a></td>
             {% endif %}
+                <td><a href="/bookDelete/{{ book.id }}" onclick="alert('確定刪除此書籍嗎')">刪除</a></td>
             </tr> 
         {% endfor %} 
     

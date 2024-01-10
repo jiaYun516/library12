@@ -18,4 +18,4 @@ register = template.Library()
 
 @register.simple_tag
 def get_menu_categories():
-    return Category.objects.all()
+    return Category.objects.filter(isOn=True)

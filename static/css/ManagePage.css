@@ -1,0 +1,21 @@
+
+button {
+    margin: 10px 5px;
+    padding: 5px;
+}
+
+table{
+    width: 70%;
+}
+td, th {
+    text-align: left;
+    padding: 8px; /* 调整单元格内边距 */
+}
+
+td:nth-last-child(-n+3){
+    width: 8%;
+}
+
+.librarian td:nth-last-child(-n+4){
+    width: 15%;
+}

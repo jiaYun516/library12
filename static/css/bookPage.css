@@ -1,2 +1,29 @@
-w{
+.block {
+    display: flex;
+    justify-content: space-between;
+}
+
+.text {
+    width: 60%;
+}
+
+.cover img {
+    max-width: 100%;
+    max-height: 500px;
+    padding: 20px;
+    margin-right: 70px;
+}
+.fa-home{
+    font-size: 40px; 
+    color: gray;
+}
+.fa-home:hover{
+    color: black;
+}
+p{
+    font-size: 20px;
+    padding-top: 5px;
+}
+button{
+    padding: 5px 10px;
 }

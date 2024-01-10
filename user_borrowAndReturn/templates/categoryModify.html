@@ -2,18 +2,18 @@
 {%block title%}猴子的叢林{% endblock title %}
 {% block headmessage %}
 <div style="display: flex;justify-content: space-between; align-items: center;">
-    <h3 style='font-family:微軟正黑體;'>新增分類</h3>
+    <h3 style='font-family:微軟正黑體;'>{{ category.name }} 資訊修改</h3>
     <a style='font-family:微軟正黑體;' href="/categoryManagePage/">回管理頁</a>
 </div>
 {%endblock headmessage%}
 {% block content%}
-<form action="/addCategory/" method="post">
+<form action="/categoryModify/{{ category.id }}" method="post">
     <h3 style="color: red;">{{ msg }}</h3>
     {% csrf_token %}
     <div class="field">
-        <label for="name">類名： </label>
-        <input type="text" name="name" id="">
+        <label for="name">分類名： </label>
+        <input type="text" name="name" id="" value="{{ category.name }}">
     </div>
-    <input type="submit" value="新增">
+    <input type="submit" value="修改">
 </form>
 {% endblock content %}
