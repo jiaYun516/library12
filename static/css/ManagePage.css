@@ -30,3 +30,6 @@ td, th {
 .needReturn td{
     width: 20%;
 }
+table a:hover{
+    text-decoration:underline;
+}

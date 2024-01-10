@@ -5,6 +5,8 @@
     <h3 style='font-family:微軟正黑體;'>新增館員</h3>
     <a href="/librarianManage/"><i class="fa fa-reply" aria-hidden="true"></i></a>
 </div>
+{% load static %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/ManagePage.css' %}">
 {% endblock headmessage %}
 
 {% block content%}
@@ -14,20 +16,24 @@
         <button type="submit">搜索</button>
     </form>
     {% if librarian %}
-        <table>
+        <table class="addLibrarian">
             <tr>
+                <td>帳號</td>
                 <td>姓名</td>
                 <td>email</td>
             </tr>
             <tr>
+                <td>{{ librarian.username }}</td>
                 <td>{{ librarian.last_name }}{{ librarian.first_name }}</td>
                 <td>{{ librarian.email }}</td>
             </tr>
         </table>
+        <br>
         {% if librarian.is_staff %}
-            <p>該用戶已是圖書員</p>
+            <p style="color: red; font-weight: bold;">該用戶已是圖書員</p>
         {% else %}
-            <a href="/addLibrarian/{{ librarian.id }}" onclick="alert('確定新增{{ librarian.first_name }}嗎')">新增為圖書員</a>
+        <button onclick="window.location.href='/addLibrarian/{{ librarian.id }}', 
+            alert('確定新增{{ librarian.first_name }}嗎')">新增為圖書員</button>
         {% endif %}
     {% else %}
         <p>{{ msg }}</p>

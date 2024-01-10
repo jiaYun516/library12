@@ -114,7 +114,7 @@ def returnBook(request):
 
 @login_required
 def getBorrowListByUser(request):
-    borrowList=BorrowingRecord.objects.filter(user=request.user).order_by('-borrowing_date','-is_returned')
+    borrowList=BorrowingRecord.objects.filter(user=request.user).order_by('is_returned','-borrowing_date')
     identityName=identity(request.user)
     return render(request,'getBorrowList.html',locals())
 

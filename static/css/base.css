@@ -59,3 +59,9 @@ a{
 .fa-home:hover, .fa-reply:hover{
     color: black;
 }
+.field{
+    margin: 10px 0;
+}
+input{
+    padding: 2px 4px;
+}
